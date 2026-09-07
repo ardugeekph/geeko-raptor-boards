@@ -9,6 +9,7 @@ DIST_DIR="${REPO_ROOT}/dist"
 ARCHIVE_NAME="geeko_line_follower-avr-${VERSION}.zip"
 ARCHIVE_PATH="${DIST_DIR}/${ARCHIVE_NAME}"
 STAGING_DIR="$(mktemp -d)"
+ARCHIVE_ROOT="avr"
 
 cleanup() {
   rm -rf "${STAGING_DIR}"
@@ -23,16 +24,19 @@ fi
 mkdir -p "${DIST_DIR}"
 rm -f "${ARCHIVE_PATH}"
 
+STAGE_PLATFORM="${STAGING_DIR}/${ARCHIVE_ROOT}"
+mkdir -p "${STAGE_PLATFORM}"
+
 rsync -a \
   --exclude='.DS_Store' \
   --exclude='__MACOSX' \
   --exclude='*.swp' \
   --exclude='*~' \
-  "${PLATFORM_SRC}/" "${STAGING_DIR}/"
+  "${PLATFORM_SRC}/" "${STAGE_PLATFORM}/"
 
 (
   cd "${STAGING_DIR}"
-  zip -r "${ARCHIVE_PATH}" . \
+  zip -r "${ARCHIVE_PATH}" "${ARCHIVE_ROOT}" \
     -x "*.DS_Store" \
     -x "*__MACOSX*" \
     -x "*.swp" \
@@ -47,8 +51,11 @@ cat <<EOF
 
 Built: ${ARCHIVE_PATH}
 
-Boards Manager expects platform files at the zip root:
-  boards.txt, platform.txt, bootloaders/, variants/
+Boards Manager expects one top-level folder in the zip:
+  ${ARCHIVE_ROOT}/boards.txt
+  ${ARCHIVE_ROOT}/platform.txt
+  ${ARCHIVE_ROOT}/bootloaders/
+  ${ARCHIVE_ROOT}/variants/
 
 Size (bytes): ${SIZE}
 Checksum:     ${CHECKSUM}

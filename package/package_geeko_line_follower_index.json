@@ -18,8 +18,8 @@
           },
           "url": "https://github.com/ardugeekph/geeko-raptor-boards/releases/download/v1.0.0/geeko_line_follower-avr-1.0.0.zip",
           "archiveFileName": "geeko_line_follower-avr-1.0.0.zip",
-          "checksum": "SHA-256:2ad0ef2d99fe3a03f3f81149b4be43ee265e7904f783d5077bbcfb2575509126",
-          "size": "4737",
+          "checksum": "SHA-256:06b257e4c1a2dd2e9df471931a0dd0ed0323304fb43dbbf61430b344c45c1d03",
+          "size": "4937",
           "boards": [
             { "name": "Geeko Raptor (Intermediate)" }
           ],

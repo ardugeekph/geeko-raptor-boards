@@ -21,7 +21,17 @@ Use this checklist when publishing a new version of **Geeko AVR Boards** to Ardu
    ./scripts/build-hardware-package.sh 1.0.0
    ```
 
-   The zip must contain `boards.txt`, `platform.txt`, and supporting folders at the **archive root**. Do not wrap them in `hardware/geeko_line_follower/avr/`; that layout is for manual sketchbook installs only.
+   The zip must contain exactly **one** top-level folder with the platform files inside it:
+
+   ```
+   avr/
+   ├── boards.txt
+   ├── platform.txt
+   ├── bootloaders/
+   └── variants/
+   ```
+
+   Do not put `boards.txt` directly at the zip root (multiple top-level folders cause a "no unique root dir" error). Do not wrap in `hardware/geeko_line_follower/avr/` either — that layout is for manual sketchbook installs only.
 
 2. Upload the zip to the GitHub Release for `v<version>`:
 
