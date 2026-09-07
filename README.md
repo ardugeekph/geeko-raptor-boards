@@ -15,11 +15,19 @@ Arduino Boards Manager distribution for the **Geeko Raptor (Intermediate)** line
 2. Add this URL:
 
    ```
-   https://raw.githubusercontent.com/ardugeekph/geeko-raptor-boards/main/package/package_geeko_line_follower_index.json
+   https://raw.githubusercontent.com/ardugeekph/geeko-raptor-boards/refs/heads/main/package/package_geeko_line_follower_index.json
    ```
 
 3. Open **Tools → Board → Boards Manager**, search for `Geeko`, and install **Geeko AVR Boards** by ArduGeek PH.
 4. Select **Tools → Board → Geeko AVR Boards → Geeko Raptor (Intermediate)**.
+
+Boards Manager installs to the Arduino data folder, not your sketchbook:
+
+```
+~/Library/Arduino15/packages/geeko_line_follower/hardware/avr/1.0.0/   (macOS)
+```
+
+Manual copy installs go under `Documents/Arduino/hardware/` instead.
 
 ### Verify installation
 

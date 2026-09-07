@@ -21,7 +21,15 @@ Use this checklist when publishing a new version of **Geeko AVR Boards** to Ardu
    ./scripts/build-hardware-package.sh 1.0.0
    ```
 
-2. Create a GitHub Release tagged `v<version>` and upload the zip from `dist/`.
+   The zip must contain `boards.txt`, `platform.txt`, and supporting folders at the **archive root**. Do not wrap them in `hardware/geeko_line_follower/avr/`; that layout is for manual sketchbook installs only.
+
+2. Upload the zip to the GitHub Release for `v<version>`:
+
+   ```bash
+   gh release upload "v<version>" "dist/geeko_line_follower-avr-<version>.zip" --clobber
+   ```
+
+   For a first release:
 
    ```bash
    gh release create "v<version>" "dist/geeko_line_follower-avr-<version>.zip" \
@@ -31,7 +39,7 @@ Use this checklist when publishing a new version of **Geeko AVR Boards** to Ardu
 3. Copy the script output (`checksum`, `size`, `url`) into [`package/package_geeko_line_follower_index.json`](package_geeko_line_follower_index.json):
    - Add a new platform entry for the version, or update the existing one.
    - Keep older platform entries if you want Boards Manager to offer upgrades from previous versions.
-   - Use exact Arduino AVR tool versions (for example `7.3.0-atmel3.6.1-arduino7`, not `7.3.0-atmel3.6.1`).
+   - Leave `toolsDependencies` empty when the platform uses `arduino:arduino` and `arduino:avrdude` from the official Arduino AVR Boards package.
 
 4. Commit the updated package index and push to `main`.
 
@@ -41,12 +49,18 @@ Use this checklist when publishing a new version of **Geeko AVR Boards** to Ardu
 2. Add the package index URL in **File → Preferences → Additional Boards Manager URLs**:
 
    ```
-   https://raw.githubusercontent.com/ardugeekph/geeko-raptor-boards/main/package/package_geeko_line_follower_index.json
+   https://raw.githubusercontent.com/ardugeekph/geeko-raptor-boards/refs/heads/main/package/package_geeko_line_follower_index.json
    ```
 
 3. Open **Tools → Board → Boards Manager**, search for `Geeko`, and install **Geeko AVR Boards**.
-4. Select **Tools → Board → Geeko AVR Boards → Geeko Raptor (Intermediate)**.
-5. Compile and upload a test sketch over serial at 115200 baud.
+4. Confirm files landed here (macOS):
+
+   ```
+   ~/Library/Arduino15/packages/geeko_line_follower/hardware/avr/<version>/boards.txt
+   ```
+
+5. Select **Tools → Board → Geeko AVR Boards → Geeko Raptor (Intermediate)**.
+6. Compile and upload a test sketch over serial at 115200 baud.
 
 ## v1.0.0 first release notes
 

@@ -4,7 +4,7 @@ set -euo pipefail
 VERSION="${1:-1.0.0}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-HARDWARE_SRC="${REPO_ROOT}/hardware/geeko_line_follower"
+PLATFORM_SRC="${REPO_ROOT}/hardware/geeko_line_follower/avr"
 DIST_DIR="${REPO_ROOT}/dist"
 ARCHIVE_NAME="geeko_line_follower-avr-${VERSION}.zip"
 ARCHIVE_PATH="${DIST_DIR}/${ARCHIVE_NAME}"
@@ -15,27 +15,24 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [[ ! -d "${HARDWARE_SRC}/avr" ]]; then
-  echo "error: expected hardware at ${HARDWARE_SRC}/avr" >&2
+if [[ ! -f "${PLATFORM_SRC}/platform.txt" ]]; then
+  echo "error: expected platform at ${PLATFORM_SRC}" >&2
   exit 1
 fi
 
 mkdir -p "${DIST_DIR}"
 rm -f "${ARCHIVE_PATH}"
 
-STAGE_HARDWARE="${STAGING_DIR}/hardware/geeko_line_follower"
-mkdir -p "${STAGE_HARDWARE}"
-
 rsync -a \
   --exclude='.DS_Store' \
   --exclude='__MACOSX' \
   --exclude='*.swp' \
   --exclude='*~' \
-  "${HARDWARE_SRC}/" "${STAGE_HARDWARE}/"
+  "${PLATFORM_SRC}/" "${STAGING_DIR}/"
 
 (
   cd "${STAGING_DIR}"
-  zip -r "${ARCHIVE_PATH}" hardware \
+  zip -r "${ARCHIVE_PATH}" . \
     -x "*.DS_Store" \
     -x "*__MACOSX*" \
     -x "*.swp" \
@@ -50,11 +47,14 @@ cat <<EOF
 
 Built: ${ARCHIVE_PATH}
 
+Boards Manager expects platform files at the zip root:
+  boards.txt, platform.txt, bootloaders/, variants/
+
 Size (bytes): ${SIZE}
 Checksum:     ${CHECKSUM}
 
 GitHub release upload:
-  gh release create "v${VERSION}" "${ARCHIVE_PATH}" --title "Geeko AVR Boards v${VERSION}"
+  gh release upload "v${VERSION}" "${ARCHIVE_PATH}" --clobber
 
 Package index fields:
   "version": "${VERSION}",
