@@ -31,6 +31,7 @@ Use this checklist when publishing a new version of **Geeko AVR Boards** to Ardu
 3. Copy the script output (`checksum`, `size`, `url`) into [`package/package_geeko_line_follower_index.json`](package_geeko_line_follower_index.json):
    - Add a new platform entry for the version, or update the existing one.
    - Keep older platform entries if you want Boards Manager to offer upgrades from previous versions.
+   - Use exact Arduino AVR tool versions (for example `7.3.0-atmel3.6.1-arduino7`, not `7.3.0-atmel3.6.1`).
 
 4. Commit the updated package index and push to `main`.
 
