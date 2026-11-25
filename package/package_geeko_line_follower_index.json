@@ -24,6 +24,23 @@
             { "name": "Geeko Raptor (Intermediate)" }
           ],
           "toolsDependencies": []
+        },
+        {
+          "name": "Geeko AVR Boards",
+          "architecture": "avr",
+          "version": "1.0.1",
+          "category": "Contributed",
+          "help": {
+            "online": "https://booming-fedora-c15.notion.site/Geeko-Raptor-Line-Follower-Robot-Learning-Kit-26d1d54c028c814a9a83fe6d5c4e300d"
+          },
+          "url": "https://github.com/ardugeekph/geeko-raptor-boards/releases/download/v1.0.1/geeko_line_follower-avr-1.0.1.zip",
+          "archiveFileName": "geeko_line_follower-avr-1.0.1.zip",
+          "checksum": "SHA-256:870d77ec54dcd90bb01ffbc2b9bb47c7270134ed095bb7a538d30c98f3395b2f",
+          "size": "5046",
+          "boards": [
+            { "name": "Geeko Raptor (Intermediate)" }
+          ],
+          "toolsDependencies": []
         }
       ],
       "tools": []
