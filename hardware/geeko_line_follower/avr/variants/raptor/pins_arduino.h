@@ -244,9 +244,11 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] = {
 #endif
 
 
-// ----- LEDS -----
-#define LED_LEFT     6   // PD6
-#define LED_RIGHT    5   // PD5
+// ----- LEDS (8CH: separate left/right; 16CH: LEDS drives both emitters) -----
+#define LED_LEFT     6   // PD6 — 8CH left LED; 16CH IR_MUX_D
+#define LED_RIGHT    5   // PD5 — 8CH right LED; 16CH LEDS (both)
+#define IR_MUX_D     6   // same net as LED_LEFT on 16CH sensor array
+#define LEDS         5   // same net as LED_RIGHT on 16CH sensor array
 
 // ----- Buzzer -----
 #define BUZZER_PIN   13  // PB5
